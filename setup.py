@@ -34,7 +34,12 @@ setup(name='sqla_declarative',
       include_package_data=True,
       zip_safe=False,
       install_requires=[
-          # -*- Extra requirements: -*-
+          "sqlalchemy >= 0.7",
+      ],
+      test_suite = 'nose.collector',
+      tests_require=[
+          'nose',
+          "zope.sqlalchemy >= 0.4",
       ],
       entry_points="""
       # -*- Entry points: -*-

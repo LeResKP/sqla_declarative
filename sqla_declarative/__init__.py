@@ -1,1 +1,1 @@
-#
+from declarative import extended_declarative_base
