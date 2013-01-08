@@ -5,7 +5,7 @@ from sqlalchemy.orm import (
     sessionmaker,
     )
 from zope.sqlalchemy import ZopeTransactionExtension
-from declarative import extended_declarative_base, _marker
+from sqla_declarative.declarative import extended_declarative_base, _marker
 import transaction
 
 
