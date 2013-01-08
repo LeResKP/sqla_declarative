@@ -13,7 +13,7 @@ version = '0.1'
 setup(name='sqla_declarative',
       version=version,
       description="Extended SQLAlchemy declarative_base class",
-      long_description=open('README.rst').read(),
+      long_description=open('README.rst').read().split('Build Status')[0],
       classifiers=[
         'Topic :: Software Development :: Libraries :: Python Modules',
         'Intended Audience :: Developers',

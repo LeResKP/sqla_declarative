@@ -34,3 +34,23 @@ Example of usage::
     bob.pk_id == 1
     # Easy querying. For example:
     Test1.query.one() == bob
+
+
+Build Status
+------------
+
+.. |master| image:: https://secure.travis-ci.org/LeResKP/sqla_declarative.png?branch=master
+   :alt: Build Status - master branch
+   :target: https://travis-ci.org/#!/LeResKP/sqla_declarative
+
+.. |develop| image:: https://secure.travis-ci.org/LeResKP/sqla_declarative.png?branch=develop
+   :alt: Build Status - develop branch
+   :target: https://travis-ci.org/#!/LeResKP/sqla_declarative
+
++----------+-----------+
+| Branch   | Status    |
++==========+===========+
+| master   | |master|  |
++----------+-----------+
+| develop  | |develop| |
++----------+-----------+
