@@ -6,6 +6,8 @@ What this class proposes:
     * the __tablename__ to create/use for the class is automatically defined by class.__name__.lower().
     * it adds a property pk_id which returns the value of the primary key for the object.
     * it attaches a query object to the class which is a shortcut to session.query(class).
+    * Function which returns all the DB entry in a HTML table
+    * Function to edit/add new entry as a HTML form
 
 
 Example of usage::
@@ -34,6 +36,13 @@ Example of usage::
     bob.pk_id == 1
     # Easy querying. For example:
     Test1.query.one() == bob
+
+    # To see all the existing entry as HTML
+    Test1.view_all()
+
+    # To add/update a new entry as HTML
+    widget = Test1.edit_form()
+    widget.display()
 
 
 Build Status

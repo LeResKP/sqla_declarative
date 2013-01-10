@@ -35,6 +35,7 @@ setup(name='sqla_declarative',
       zip_safe=False,
       install_requires=[
           "sqlalchemy >= 0.7",
+          "tw2.sqla",
       ],
       test_suite = 'nose.collector',
       tests_require=[
