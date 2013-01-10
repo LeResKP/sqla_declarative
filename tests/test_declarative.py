@@ -35,6 +35,21 @@ class TestExtendedBase(unittest.TestCase):
             self.value2 = Test2(name='Bob')
             self.session.add(self.value2)
 
+    def test_extended_declarative_base(self):
+        Base = extended_declarative_base(
+            self.session,
+            metadata=sa.MetaData('sqlite:///:memory:'))
+        self.assertTrue(hasattr(Base, 'pk_id'))
+        self.assertTrue(hasattr(Base, 'edit_form'))
+
+    def test_extended_declarative_base_no_form(self):
+        Base = extended_declarative_base(
+            self.session,
+            forms=False,
+            metadata=sa.MetaData('sqlite:///:memory:'))
+        self.assertTrue(hasattr(Base, 'pk_id'))
+        self.assertFalse(hasattr(Base, 'edit_form'))
+
     def test_query(self):
         self.session.add(self.value1)
         self.session.add(self.value2)
@@ -63,6 +78,16 @@ class TestExtendedBase(unittest.TestCase):
         self.assertEqual(v.pk_id, 1)
         v = self.Test2.query.one()
         self.assertEqual(v.pk_id, 1)
+
+    def test_db_session_add(self):
+        v = self.Test1(name='Fred')
+        transaction.commit()
+        self.assertEqual(v.pk_id, None)
+        v.db_session_add()
+        transaction.commit()
+        v.db_session_add()
+        self.assertEqual(v.pk_id, 2)
+
 
 
 class TestExtendedBaseManyPk(unittest.TestCase):

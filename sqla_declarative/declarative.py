@@ -1,5 +1,6 @@
 from sqlalchemy.ext.declarative import declarative_base, declared_attr
 from sqlalchemy.orm import class_mapper
+from tw2.sqla import AutoViewGrid, AutoTableForm
 
 _marker = object()
 
@@ -31,8 +32,37 @@ class ExtendedBase(object):
     def pk_id(self):
         return getattr(self, self._pk_name())
 
+    def db_session_add(self):
+        self.query.session.add(self)
 
-def extended_declarative_base(db_session, **kw):
-    Base = declarative_base(cls=ExtendedBase, **kw)
+
+# TODO: See why we need to do '.req()' on the form and make sure it's not
+# time/ressource consumming
+class MixinForm(object):
+
+    @classmethod
+    def view_all(cls):
+        c = type('%sAutoViewGrid' % cls.__name__,
+                    (AutoViewGrid,),
+                    {'entity': cls})
+        form = c().req()
+        form.value = cls.query.all()
+        return form.display()
+
+    @classmethod
+    def edit_form(cls):
+        c = type('%sAutoTableForm' % cls.__name__,
+                 (AutoTableForm,),
+                 {'entity': cls})
+        return c().req()
+
+
+class FormBase(ExtendedBase, MixinForm): pass
+
+def extended_declarative_base(db_session, forms=True, **kw):
+    if forms:
+        Base = declarative_base(cls=FormBase, **kw)
+    else:
+        Base = declarative_base(cls=ExtendedBase, **kw)
     Base.query = db_session.query_property()
     return Base
